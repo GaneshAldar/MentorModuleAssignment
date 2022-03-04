@@ -1,0 +1,23 @@
+<div class="container shadow-lg rounded">
+    <form [formGroup]="signupForm" class="loginform" (ngSubmit)="signUp()">
+        <h1>Sign up</h1>
+        
+        <hr style="width:70%;">
+        <label class="lab" for="">Username</label>
+        <input formControlName="username" type="text" placeholder="Username" class="in">
+        <span class="text-danger" *ngIf="signupForm.controls['username'].dirty && signupForm.hasError('required','username')">*Username is required</span>
+
+        <label class="lab" for="">Email</label>
+        <input formControlName="email" type="email" placeholder="Email" class="in">
+        <span class="text-danger" *ngIf="signupForm.controls['email'].dirty && signupForm.hasError('required','email')">*Email is required</span>
+
+        <label for="" class="lab">Create Password</label>
+        <input formControlName="password" type="password" placeholder="Password" class="in">
+        <span class="text-danger" *ngIf="signupForm.controls['password'].dirty && signupForm.hasError('required','password')">*Create Password is required</span>
+
+        <button type="submit" [disabled]="!signupForm.valid" >Sign up</button>
+        <a href="" routerLink="/user/login" class="al">Already have Account? SignIn</a>
+    </form>
+
+</div>
+

@@ -1,0 +1,97 @@
+<div class="b">
+    <button type="button" class="btn  ad " (click)="openModal()" (click)=" clickAddEmployee()"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-plus-fill" viewBox="0 0 16 16">
+        <path d="M1 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
+        <path fill-rule="evenodd" d="M13.5 5a.5.5 0 0 1 .5.5V7h1.5a.5.5 0 0 1 0 1H14v1.5a.5.5 0 0 1-1 0V8h-1.5a.5.5 0 0 1 0-1H13V5.5a.5.5 0 0 1 .5-.5z"/>
+      </svg> Add Employee</button>
+
+</div>
+
+<table class="table  table-hover shadow-lg">
+    <thead>
+        <tr class="text-center">
+            <th scope="col">Emp ID</th>
+            <th scope="col">Name</th>
+            <th scope="col">Team</th>
+            <th scope="col">Designation</th>
+            <th scope="col">Joining date</th>
+            <th scope="col">Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr class="text-center" *ngFor="let row of employeeData">
+            <th scope="row">{{row.emp_ID}}</th>
+            <td scope="row">{{row.name}}</td>
+            <td scope="row">{{row.team}}</td>
+            <td scope="row">{{row.designation}}</td>
+            <td scope="row">{{row.joiningDate | date}}</td>
+            <td>
+                <button class="btn " (click)="openModal()"  (click)="edit(row)" ><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
+                    <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+                    <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
+                  </svg></button>
+                <button (click)="deleteTheEmployee(row.emp_ID)" class="btn  mx-3" ><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">
+                    <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z"/>
+                  </svg></button>
+
+            </td>
+
+        </tr>
+</table>
+
+
+
+<!-- modal -->
+<div class="modal ak" tabindex="-1" role="dialog" [ngStyle]="{'display':display}">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-light">
+                <h4 class="modal-title ">Employee Details</h4>
+                <button type="button" class="close" aria-label="Close" (click)="onCloseHandled()"><span aria-hidden="true">&times;</span></button>
+            </div>
+            <div class="modal-body">
+
+                <div class="wrapper">
+
+                    <form [formGroup]="formValue" class="form">
+                        <div class="inputfield">
+                            <label>Emp ID</label>
+                            <input type="text" class="input" formControlName="Emp_ID">
+                        </div>
+                        <div class="inputfield">
+                            <label>Name</label>
+                            <input type="text" class="input" formControlName="Name">
+                        </div>
+                        <div class="inputfield">
+                            <label>Team</label>
+                            <input type="text" class="input" formControlName="Team">
+                        </div>
+                        <div class="inputfield">
+                            <label>Designation</label>
+                            <div class="custom_select">
+                                <select formControlName="Designation">
+                                    <option value="">Select</option>
+                                    <option value="Tester">Tester</option>
+                                    <option value="Developer">Developer</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="inputfield">
+                            <label>Joining Date</label>
+                            <input type="text" placeholder="Date"  class="input" formControlName="JoiningDate" bsDatepicker >
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="cancel" class="btn btn-default" (click)="onCloseHandled()">Close</button>
+                <button type="button" *ngIf="showAdd" class="btn btn-info" (click)="postTheEmployee()">Add</button>
+                <button type="button" *ngIf="showUpdated" class="btn btn-info" (click)="updateTheEmployee()">Update</button>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<router-outlet></router-outlet>

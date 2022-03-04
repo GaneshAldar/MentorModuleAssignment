@@ -1,0 +1,17 @@
+<div class="container shadow-lg rounded">
+    <form [formGroup]="loginForm" action="" class="loginform" (ngSubmit)="login()">
+        <h1>Login</h1>
+        <hr style="width:70%;">
+        <label class="lab" for="">Username</label>
+        <input formControlName="username" type="text" placeholder="Username" class="in">
+        <span class="text-danger" *ngIf="loginForm.controls['username'].dirty && loginForm.hasError('required','username')">*Username is required</span>
+
+        <label for="" class="lab">Password</label>
+        <input formControlName="password" type="password" placeholder="Password" class="in">
+        <span class="text-danger" *ngIf="loginForm.controls['password'].dirty && loginForm.hasError('required','password')">*Password is required</span>
+        <span>Forget Password?</span>
+        <button [disabled]="!loginForm.valid" type="submit" >Login</button>
+        <a href="" routerLink="/user/signup" class="al">Don't have Account? SignUp</a>
+    </form>
+
+</div>
